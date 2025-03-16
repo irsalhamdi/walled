@@ -1,11 +1,11 @@
 import "./App.css";
-import DashboardPage from "./pages/dashboardPage";
+import TopupPage from "./pages/TopupPage";
 
 function App() {
 
   return (
     <>
-      <DashboardPage />
+      <TopupPage />
     </>
   );
 }
