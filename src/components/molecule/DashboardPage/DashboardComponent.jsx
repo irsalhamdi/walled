@@ -58,7 +58,7 @@ export default function DashboardComponent() {
   ];
   return (
     <Container>
-      <LayoutGlobal style={{ margin: "40px 0", colors: "rgba(0, 0, 0, 1)" }}>
+      <LayoutGlobal style={{ marginBottom: "40px", colors: "rgba(0, 0, 0, 1)" }}>
         {/* Profile */}
         <div
           style={{
@@ -66,7 +66,7 @@ export default function DashboardComponent() {
             alignItems: "center",
             justifyContent: "space-between",
             gap: 11,
-            marginTop: "40px",
+            paddingTop: "40px",
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

@@ -20,7 +20,7 @@ import { Search } from "@mui/icons-material";
 
 import { convertUsds2, loadingSkeleton } from "./helper.js";
 import { styles } from "../../../styles/index.js";
-import UiDataEmpty from "../uiEmpty/index.jsx";
+import UiDataEmpty from "../UiEmpty/index.jsx";
 import PaginationExample from "../Pagination/index.jsx";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";

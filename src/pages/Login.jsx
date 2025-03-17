@@ -1,7 +1,7 @@
 import React from 'react'
 import OrganismLogin from '../components/organism/OrganismLogin'
 
-export default function LoginPage() {
+export default function Login() {
   return (
     <OrganismLogin/>
   )

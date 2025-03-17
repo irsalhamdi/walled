@@ -1,35 +1,44 @@
 import React from "react";
-import { AppBar, Toolbar } from "@mui/material";
-import { WbSunny } from "@mui/icons-material";
-import Typography from "../Typography";
+import { AppBar, IconButton, Toolbar } from "@mui/material";
+import { NightlightRound, WbSunny } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 
-export default function NavbarCustom() {
-  const menuItems = ["Dashboard", "Transfer", "Topup", "Sign Out"];
+export default function NavbarCustom({ darkMode, setDarkMode}) {
+  const menuItems = [
+    { label: "Dashboard", path: "/" },
+    { label: "Transfer", path: "/transfer" },
+    { label: "Topup", path: "/topup" },
+    { label: "Sign Out", path: "/login" },
+  ];
+
   return (
-    <AppBar
-      position="static"
-      elevation={0}
-      sx={{ backgroundColor: "white", boxShadow: "none" }}
-    >
+    <AppBar position="static" elevation={0}  sx={{
+        backgroundColor: darkMode ? "#1e1e1e" : "white",
+        boxShadow: "none",
+        color: darkMode ? "white" : "black",
+      }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <div
-          style={{ display: "flex", alignItems: "center", gap: 1, width: "100px" }}
-        >
+        <div style={{ display: "flex", alignItems: "center", gap: 1, width: "100px" }}>
           <img src="/image/logo.svg" alt="logo" style={{ width: "100%" }} />
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 60 }}>
-          {menuItems.map((item) => (
-            <Typography
-              key={item}
-              color="rgba(0, 0, 0, 1)"
-              style={{ cursor: "pointer" }}
+          {menuItems.map(({ label, path }) => (
+            <NavLink
+              key={label}
+              to={path}
+              style={({ isActive }) => ({
+                color: isActive ? "blue" : "inherit",
+                fontWeight: isActive ? "bold" : "normal",
+                textDecoration: "none",
+                cursor: "pointer",
+              })}
             >
-              {item}
-            </Typography>
+              {label}
+            </NavLink>
           ))}
-          <div style={{ borderLeft: "1px solid #ddd", paddingLeft:"10px", height: "24px" }}>
-            <WbSunny sx={{ color: "orange" }} />
-          </div>
+           <IconButton onClick={() => setDarkMode(!darkMode)} sx={{ color: darkMode ? "orange" : "black" }}>
+            {darkMode ? <WbSunny /> : <NightlightRound />}
+          </IconButton>
         </div>
       </Toolbar>
     </AppBar>
