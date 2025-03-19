@@ -2,15 +2,59 @@ import React, { useState } from "react";
 import Container from "../../atom/Container";
 import LayoutGlobal from "../../atom/Layout";
 import Typography from "../../atom/Typography";
-import { Avatar } from "@mui/material";
 import { RemoveRedEyeOutlined, AddSharp, SendSharp } from "@mui/icons-material";
 import { convertUsds2, dataTable } from "../../atom/Table/helper";
 import { ButtomCustom } from "../../atom/Button";
+import UseResponsive from "../../../hooks/UseResponsive";
+import HistoryComponent from "../HistoryCard/HistoryComponent";
 import TableCustom from "../../atom/Table";
+import { Avatar } from "@mui/material";
 
 export default function DashboardComponent() {
+  const {screenSizeRevamp} = UseResponsive();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  console.log(screenSizeRevamp, "cek screen size new");
+
+  const defaultStyle = {
+    alignItemsProfile: "center",
+    justifyContentProfile: "space-between",
+    displayProfil: "flex",
+    flexDirectionAccount: "row",
+    gapRekening: 46,
+    flexDirectionAccountBlue: "column",
+    paddingAccountBlue: "30px",
+    boxShadowAccountBlue: "0px 4px 4px rgba(0, 0, 0, 0.1)",
+    justifyContentAccountBlue: "center",
+    borderRadiusAcccountWhite: "20px",
+    paddingAccountWhite: "30px",
+    widthAccountWhite: "100%",
+    boxShadowAccountWhite: "0px 4px 4px rgba(0, 0, 0, 0.1)",
+    flexDirectionButtonBlue: "row",
+    marginTopButtonBlue: "0",
+  }
+
+  const customStyle = (screenSizeRevamp, defaultStyle) => {
+    let newStyle = {...defaultStyle};
+    if (screenSizeRevamp.small) {
+      newStyle.alignItemsProfile = "start";
+      newStyle.justifyContentProfile = "start";
+      newStyle.displayProfil = "none";
+      newStyle.flexDirectionAccount = "column";
+      newStyle.gapRekening = 20;
+      newStyle.flexDirectionAccountBlue = "row";
+      newStyle.paddingAccountBlue = "15px";
+      newStyle.boxShadowAccountBlue = "none";
+      newStyle.borderRadiusAcccountWhite = "10px";
+      newStyle.paddingAccountWhite = "15px";
+      newStyle.widthAccountWhite = "auto";
+      newStyle.boxShadowAccountWhite = "none";
+      newStyle.justifyContentAccountBlue = "space-between";
+      newStyle.flexDirectionButtonBlue = "column";
+      newStyle.marginTopButtonBlue = "20px";
+    }
+    return newStyle;
+  }
 
   const handlePaginationChange = (event, value) => {
     setCurrentPage(value);
@@ -58,15 +102,16 @@ export default function DashboardComponent() {
   ];
   return (
     <Container>
-      <LayoutGlobal style={{ marginBottom: "40px", colors: "rgba(0, 0, 0, 1)" }}>
+      <LayoutGlobal style={{ marginBottom: "40px", colors: "rgba(0, 0, 0, 1)", maxWidth: "100%" }}>
         {/* Profile */}
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            alignItems: customStyle(screenSizeRevamp, defaultStyle).alignItemsProfile,
+            flexDirection: "row",
+            justifyContent: customStyle(screenSizeRevamp, defaultStyle).justifyContentProfile,
             gap: 11,
-            paddingTop: "40px",
+            paddingTop: "20px",
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -87,25 +132,31 @@ export default function DashboardComponent() {
               textAlign: "right",
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <Typography type="label-sm" style={{ fontWeight: "bold" }}>
-                Chelsea Immanuela
-              </Typography>
-              <Typography
-                type="label-xs"
-                style={{ fontFamily: "WalledRegular" }}
+            {screenSizeRevamp.small ? (
+              <img src="/image/sun-dashboard.svg" alt="sun-dashboard" />
+            ): (
+              <>
+              <div style={{ display: customStyle(screenSizeRevamp, defaultStyle).displayProfil, flexDirection: "column" }}>
+                <Typography type="label-sm" style={{ fontWeight: "bold" }}>
+                  Chelsea Immanuela
+                </Typography>
+                <Typography
+                  type="label-xs"
+                  style={{ fontFamily: "WalledRegular" }}
+                >
+                  Personal Account
+                </Typography>
+              </div>
+              <div
+                style={{
+                  border: "5px solid rgba(0, 97, 255, 1)",
+                  borderRadius: "50%",
+                }}
               >
-                Personal Account
-              </Typography>
-            </div>
-            <div
-              style={{
-                border: "5px solid rgba(0, 97, 255, 1)",
-                borderRadius: "50%",
-              }}
-            >
-              <Avatar src="/image/image-user.svg" alt="Chelsea Immanuela" />
-            </div>
+                <Avatar src="/image/image-user.svg" alt="Chelsea Immanuela" />
+              </div>
+            </>
+            )}
           </div>
         </div>
 
@@ -113,21 +164,22 @@ export default function DashboardComponent() {
         <div
           style={{
             display: "flex",
-            flexDirection: "row",
-            gap: 46,
-            marginTop: "73px",
+            flexDirection: customStyle(screenSizeRevamp, defaultStyle).flexDirectionAccount,
+            gap: customStyle(screenSizeRevamp, defaultStyle).gapRekening,
+            marginTop: "15px",
           }}
         >
           <div
             style={{
               backgroundColor: "rgba(0, 97, 255, 1)",
               display: "flex",
-              flexDirection: "column",
+              flexDirection: customStyle(screenSizeRevamp, defaultStyle).flexDirectionAccountBlue,
               gap: 12,
-              padding: "30px",
+              padding: customStyle(screenSizeRevamp, defaultStyle).paddingAccountBlue,
               borderRadius: "20px",
               color: "white",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
+              boxShadow: customStyle(screenSizeRevamp, defaultStyle).boxShadowAccountBlue,
+              justifyContent: customStyle(screenSizeRevamp, defaultStyle).justifyContentAccountBlue
             }}
           >
             <Typography type="body-lg">AccountNo</Typography>
@@ -139,16 +191,13 @@ export default function DashboardComponent() {
               display: "flex",
               flexDirection: "column",
               gap: 12,
-              padding: "30px",
-              borderRadius: "20px",
+              padding: customStyle(screenSizeRevamp, defaultStyle).paddingAccountWhite,
+              borderRadius: customStyle(screenSizeRevamp, defaultStyle).borderRadiusAcccountWhite,
               color: "white",
-              width: "80%",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)",
+              width: customStyle(screenSizeRevamp, defaultStyle).widthAccountWhite,
+              boxShadow: customStyle(screenSizeRevamp, defaultStyle).boxShadowAccountWhite,
             }}
           >
-            <Typography type="body-lg" color="rgba(0, 0, 0, 1)">
-              Balance
-            </Typography>
             <div
               style={{
                 display: "flex",
@@ -158,22 +207,27 @@ export default function DashboardComponent() {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: 70 }}>
-                <span>{`Rp ${convertUsds2(10000000)}`}</span>
+              <div style={{ display: "flex",  flexDirection: "column",justifyContent: "space-between", width: "auto",}}>
+               <div>
+                  <Typography type="body-lg" color="rgba(0, 0, 0, 1)">
+              Balance
+            </Typography>
+               </div>
+               <div style={{ display: "flex", flexDirection: "row", gap: 10, alignItems: "center" }}>
+                <Typography type="title-lg" style={{ fontWeight: "bold" }}>{`Rp ${convertUsds2(10000000)}`} </Typography>
                 <RemoveRedEyeOutlined />
+               </div>
               </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: 26 }}>
+              <div style={{ display: "flex", flexDirection: customStyle(screenSizeRevamp, defaultStyle).flexDirectionButtonBlue, gap: 26, marginTop: customStyle(screenSizeRevamp, defaultStyle).marginTopButtonBlue }}>
                 <ButtomCustom
                   color="rgba(0, 97, 255, 1)"
                   borderRadius="8px"
-                  padding="8px 0"
                 >
                   <AddSharp />
                 </ButtomCustom>
                 <ButtomCustom
                   color="rgba(0, 97, 255, 1)"
                   borderRadius="8px"
-                  padding="8px 0"
                 >
                   <SendSharp style={{ transform: "rotate(-30deg)" }} />
                 </ButtomCustom>
@@ -183,8 +237,11 @@ export default function DashboardComponent() {
         </div>
 
         {/* Table */}
-        <div style={{ margin: "40px 0", }}>
-          <TableCustom
+        <div style={{ margin: "20px 0", }}>
+          {screenSizeRevamp.small ? (
+            <HistoryComponent />
+          ): (
+           <TableCustom
             verticalLine
             onChangePage={handlePaginationChange}
             withPagination={dataTable.transactions.length > 0}
@@ -201,6 +258,7 @@ export default function DashboardComponent() {
             prevDisabled={currentPage === 1}
             nextDisabled={currentPage === dataTable.total_items}
           />
+          )}
         </div>
       </LayoutGlobal>
     </Container>

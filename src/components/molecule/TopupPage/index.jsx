@@ -4,8 +4,28 @@ import Typography from "../../atom/Typography";
 import { InputAdornment, MenuItem, Select, TextField } from "@mui/material";
 import InputCustom from "../../atom/Input";
 import { ButtomCustom } from "../../atom/Button";
+import UseResponsive from "../../../hooks/UseResponsive";
 
 export default function Topup() {
+  const {screenSizeRevamp} = UseResponsive();
+  const defaultStyle = {
+    margin: "40px auto",
+    width: "50%",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    borderRadius: "20px",
+    marginTop: "25px",
+  }
+  const manipulateStyle = (screenSizeRevamp, defaultStyle ) => {
+    let newStyle = {...defaultStyle};
+    if (screenSizeRevamp.small) {
+      newStyle.margin = "0";
+      newStyle.width = "100%";
+      newStyle.boxShadow = "none";
+      newStyle.borderRadius = 0;
+      newStyle.marginTop = 0;
+    }
+    return newStyle
+  }
   const commonSelectStyles = {
     borderRadius: "8px",
     backgroundColor: "rgba(250, 251, 253, 1)",
@@ -22,20 +42,17 @@ export default function Topup() {
   };
   return (
     <LayoutGlobal
-      style={{ colors: "rgba(0, 0, 0, 1)", width: "50%", margin: "40px auto" }}
+      style={{ colors: "rgba(0, 0, 0, 1)", width: manipulateStyle(screenSizeRevamp, defaultStyle).width, margin: manipulateStyle(screenSizeRevamp, defaultStyle).margin }}
     >
-      <Typography type="title-xl" style={{ fontWeight: "bold" }}>
-        Top up
-      </Typography>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           gap: 29,
           padding: "54px",
-          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-          borderRadius: "20px",
-          marginTop: "25px",
+          boxShadow: manipulateStyle(screenSizeRevamp, defaultStyle).boxShadow,
+          borderRadius: manipulateStyle(screenSizeRevamp, defaultStyle).borderRadius,
+          marginTop: manipulateStyle(screenSizeRevamp, defaultStyle).marginTop,
         }}
       >
 

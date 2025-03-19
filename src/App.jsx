@@ -10,10 +10,10 @@ import NavbarCustom from "@/components/atom/Navbar";
 
 function Layout({ darkMode, setDarkMode }) {
   return (
-    <>
+    <div style={{ backgroundColor: "#F8FAFD" }}>
       <NavbarCustom darkMode={darkMode} setDarkMode={setDarkMode} />
       <Outlet />
-    </>
+    </div>
   );
 }
 

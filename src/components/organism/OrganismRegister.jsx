@@ -11,6 +11,7 @@ export default function OrganismRegister() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        height: "100vh",
       }}
     >
       <LeftComponentRegister />

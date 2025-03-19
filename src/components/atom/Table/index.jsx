@@ -25,6 +25,7 @@ import PaginationExample from "../Pagination/index.jsx";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { format } from "date-fns";
+import UseResponsive from "../../../hooks/UseResponsive.jsx";
 
 const MerchantTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -64,6 +65,22 @@ const TableCustom = (props) => {
     onChangeRowsPerPage,
     total_items,
   } = props;
+
+  const {screenSizeRevamp} = UseResponsive();
+  const defaultStyle = {
+    flexWrap: "nowrap",
+    gap: 0,
+    widthFilter: "auto",
+  }
+  const manipulateStyle = (screenSizeRevamp, defaultStyle) => {
+    let newStyle = {...defaultStyle};
+    if (screenSizeRevamp.medium) {
+      newStyle.flexWrap = "wrap";
+      newStyle.gap = 20;
+      newStyle.widthFilter = "40%";
+    }
+    return newStyle;
+  }
 
   const isLoadingDataFetch = {
     dataTable: false,
@@ -138,9 +155,11 @@ const TableCustom = (props) => {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px 0",
+          flexWrap: manipulateStyle(screenSizeRevamp, defaultStyle).flexWrap,
+          gap: manipulateStyle(screenSizeRevamp, defaultStyle).gap,
         }}
       >
-        <div style={{ display: "flex", flexDirection: "row", gap: "16px" }}>
+        <div style={{ display: "flex", flexDirection: "row", gap: "16px", width: manipulateStyle(screenSizeRevamp, defaultStyle).widthFilter }}>
           <TextField
             variant="outlined"
             placeholder="Search"
@@ -155,7 +174,7 @@ const TableCustom = (props) => {
             }}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "row", gap: "16px" }}>
+        <div style={{ display: "flex", flexDirection: "row", gap: "16px", width: manipulateStyle(screenSizeRevamp, defaultStyle).widthFilter }}>
           <p>Show</p>
           <Select
             value="Last 10 transactions"
@@ -183,6 +202,7 @@ const TableCustom = (props) => {
             flexDirection: "row",
             gap: "16px",
             alignItems: "center",
+            width: manipulateStyle(screenSizeRevamp, defaultStyle).widthFilter,
           }}
         >
           <span>Sort</span>
@@ -199,6 +219,8 @@ const TableCustom = (props) => {
               }}
             />
           </LocalizationProvider>
+        </div>
+        <div>
           <Select
             value="Assending"
             onChange={(e) => console.log(e)}
