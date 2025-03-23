@@ -18,7 +18,7 @@ import Stack from "@mui/material/Stack";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Search } from "@mui/icons-material";
 
-import { convertUsds2, loadingSkeleton } from "./helper.js";
+import { loadingSkeleton } from "./helper.js";
 import { styles } from "../../../styles/index.js";
 import UiDataEmpty from "../UiEmpty/index.jsx";
 import PaginationExample from "../Pagination/index.jsx";
@@ -97,7 +97,10 @@ const TableCustom = (props) => {
   const manipulateColumnData = (row, value, isLoading, fullValue) => {
     let newValue = value;
     if (row === "amount") {
-      newValue = `IDR ${convertUsds2(value)}`;
+      newValue =
+        value > 0
+          ? `+ ${value.toLocaleString("id-ID")},00`
+          : `- ${Math.abs(value).toLocaleString("id-ID")},00`;
     }
     if (row === "fromTo") {
       newValue = `${fullValue.from} ${fullValue.to}`;
@@ -122,7 +125,7 @@ const TableCustom = (props) => {
     "& .MuiOutlinedInput-root": {
       borderRadius: "8px",
       backgroundColor: darkMode ? "#333" : "white",
-      color: darkMode ? "#e0e0e0" : "black",
+      color: darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)",
       "& fieldset": {
         borderColor: "transparent",
       },
@@ -321,12 +324,24 @@ const TableCustom = (props) => {
                             key={j}
                             sx={{ textAlign: "center" }}
                           >
-                            {manipulateColumnData(
-                              column.id,
-                              row[column.id],
-                              isLoadingDataFetch.dataTable,
-                              row
-                            )}
+                            <Typography
+                              color={
+                                column.id === "amount"
+                                  ? row.amount > 0
+                                    ? "rgba(45, 192, 113, 1)"
+                                    : darkMode
+                                    ? "#B0B0B0" 
+                                    : "rgba(37, 43, 66, 1)"
+                                  : "inherit"
+                              }
+                            >
+                              {manipulateColumnData(
+                                column.id,
+                                row[column.id],
+                                isLoadingDataFetch.dataTable,
+                                row
+                              )}
+                            </Typography>
                           </MerchantTableCell>
                         ))}
                     </TableRow>

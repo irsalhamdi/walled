@@ -1,87 +1,73 @@
 import { Button } from '@mui/material';
 
 export const ButtomCustom = ({
- disabled,
-    color,
-    fontColor,
-    reponsiveWidth,
-    isbold,
-    label,
-    onClick,
-    borderRadius,
-    fontSize,
-    outline,
-    padding,
-    width,
-    icon,
-    display,
-    gap,
-    fontFamily,
-    children,
-    positionIcon,
-    style,
+  disabled,
+  color,
+  fontColor,
+  responsiveWidth,
+  isbold,
+  label,
+  onClick,
+  borderRadius,
+  fontSize,
+  outline,
+  padding,
+  width,
+  icon,
+  display,
+  gap,
+  fontFamily,
+  children,
+  positionIcon,
+  style,
 }) => {
   return (
-    <Button data-testid={'button-custome'}
+    <Button
+      data-testid="button-custome"
       component="label"
-      style={customeStyle({
-        color,
-        disabled,
-        isbold,
-        borderRadius,
-        outline,
-        fontColor,
-        fontSize,
-        padding,
-        width,
-        reponsiveWidth,
-        display,
-        gap,
-        fontFamily,
-        ...style,
-      })}
       disabled={disabled}
       onClick={disabled ? () => null : onClick}
+      sx={{
+        gap,
+        fontFamily,
+        display,
+        backgroundColor: disabled
+          ? '#929393'
+          : outline
+          ? 'white'
+          : color,
+        border: `1px solid ${disabled ? '#929393' : color}`,
+        borderRadius: borderRadius ?? '10px',
+        fontWeight: isbold ? 700 : 400,
+        fontSize: fontSize ?? '1rem',
+        color: outline ? color : fontColor ?? 'white',
+        textTransform: 'capitalize',
+        padding,
+        width: width ?? '100%',
+        marginTop: 'auto',
+        cursor: disabled ? 'no-drop' : 'pointer',
+        ...style,
+
+        '&:hover': {
+          backgroundColor: outline
+            ? 'white'
+            : disabled
+            ? '#929393'
+            : color,
+          opacity: 0.75,
+        },
+
+        '&.Mui-disabled': {
+          backgroundColor: '#929393',
+          color: 'white',
+          cursor: 'no-drop !important', 
+        },
+      }}
     >
-      <>{positionIcon === 'left' && icon}</>
+      {positionIcon === 'left' && icon}
       {label}
       {children}
-       <>{positionIcon === 'right' && icon}</>
+      {positionIcon === 'right' && icon}
     </Button>
   );
 };
-
-const customeStyle = (props) => ({
-  gap: props?.gap,
-  fontFamily: props?.fontFamily,
-  display: props?.display,
-  backgroundColor: props.disabled
-    ? "#929393"
-    : props?.outline
-    ? 'white'
-    : props.color,
-  border: `1px solid ${props.disabled ? "#929393": props?.color}`,
-  borderRadius: props.borderRadius ?? "10px",
-  fontWeight: props.isbold
-    ? "700"
-    : "400",
-  fontSize: props.fontSize ?? "1rem",
-  color: props?.outline ? props?.color : props?.fontColor ?? 'white',
-  '&:hover': {
-    backgroundColor: props?.outline
-      ? 'white'
-      : props?.disabled
-      ? "#929393"
-      : props?.color,
-    opacity: 0.75,
-  },
-  ' &.MuiDisabled': {
-    background: "#929393",
-    color: 'white',
-  },
-  textTransform: 'capitalize',
-  padding: props?.padding,
-  cursor: props?.disabled ? 'default' : 'pointer',
-  marginTop: 'auto',
-  width: "100%",
-});

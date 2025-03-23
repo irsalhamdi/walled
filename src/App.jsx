@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
-import { useState } from "react";
 import "./App.css";
 import DashboardPage from "@/pages/DashboardPage.jsx";
 import TransferPage from "@/pages/TransferPage.jsx";
@@ -8,31 +7,30 @@ import LoginPage from "@/pages/Login.jsx";
 import RegisterPage from "@/pages/Register.jsx";
 import NavbarCustom from "@/components/atom/Navbar";
 
-function Layout({ darkMode, setDarkMode }) {
+function Layout() {
   return (
     <div style={{ backgroundColor: "#F8FAFD" }}>
-      <NavbarCustom darkMode={darkMode} setDarkMode={setDarkMode} />
+      <NavbarCustom />
       <Outlet />
     </div>
   );
 }
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
 
   return (
     <Router>
       <Routes>
         {/* Halaman dengan Navbar */}
-        <Route element={<Layout darkMode={darkMode} setDarkMode={setDarkMode} />}>
-          <Route path="/" element={<DashboardPage darkMode={darkMode} />} />
-          <Route path="/transfer" element={<TransferPage />} />
-          <Route path="/topup" element={<TopupPage />} />
+        <Route element={<Layout/>}>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/transfer" element={<TransferPage/>} />
+          <Route path="/topup" element={<TopupPage/>} />
         </Route>
 
         {/* Halaman Login & Register */}
-        <Route path="/login" element={<LoginPage darkMode={darkMode} />} />
-        <Route path="/register" element={<RegisterPage darkMode={darkMode} />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </Router>
   );

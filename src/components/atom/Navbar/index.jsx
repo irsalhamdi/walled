@@ -13,13 +13,14 @@ import { Menu, NightlightRound, WbSunny } from "@mui/icons-material";
 import { NavLink, useLocation } from "react-router-dom";
 import UseResponsive from "../../../hooks/UseResponsive";
 import Typography from "../Typography";
+import useDarkMode from "../../../zustand/useDarkmode";
 
-export default function NavbarCustom({ darkMode, setDarkMode }) {
+export default function NavbarCustom() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const { screenSizeRevamp } = UseResponsive();
   const location = useLocation();
   const hideProfile = location.pathname === "/";
-  console.log(hideProfile, "cek hideProfile");
+  const { toggleDarkMode, darkMode } = useDarkMode();
 
   const menuItems = [
     { label: "Dashboard", path: "/" },
@@ -65,12 +66,13 @@ export default function NavbarCustom({ darkMode, setDarkMode }) {
               <Avatar src="/image/image-user.svg" alt="Chelsea Immanuela" />
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <Typography type="label-sm" style={{ fontWeight: "bold" }}>
+              <Typography type="label-sm" style={{ fontWeight: "bold" }} color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}>
                 Chelsea Immanuela
               </Typography>
               <Typography
                 type="label-xs"
                 style={{ fontFamily: "WalledRegular" }}
+                color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}
               >
                 Personal Account
               </Typography>
@@ -90,7 +92,7 @@ export default function NavbarCustom({ darkMode, setDarkMode }) {
 
         {screenSizeRevamp.small ? (
           <>
-            {!hideProfile && <p>{formatPath(location.pathname)}</p>}
+            {!hideProfile && <Typography type="label-sm" color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}>{formatPath(location.pathname)}</Typography>}
             <IconButton
               onClick={() => setOpenDrawer(true)}
               sx={{ color: darkMode ? "white" : "black" }}
@@ -126,7 +128,12 @@ export default function NavbarCustom({ darkMode, setDarkMode }) {
                     <ListItemText primary={label} />
                   </ListItem>
                 ))}
-                <ListItem button onClick={() => setDarkMode(!darkMode)}>
+                <ListItem
+                  button
+                  onClick={() => {
+                    toggleDarkMode();
+                  }}
+                >
                   <ListItemText
                     primary={darkMode ? "Light Mode" : "Dark Mode"}
                   />
@@ -152,7 +159,9 @@ export default function NavbarCustom({ darkMode, setDarkMode }) {
               </NavLink>
             ))}
             <IconButton
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={() => {
+                toggleDarkMode();
+              }}
               sx={{ color: darkMode ? "orange" : "black" }}
             >
               {darkMode ? <WbSunny /> : <NightlightRound />}

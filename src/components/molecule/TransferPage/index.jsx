@@ -6,12 +6,14 @@ import InputCustom from "../../atom/Input";
 import { ButtomCustom } from "../../atom/Button";
 import UseResponsive from "../../../hooks/UseResponsive";
 
-export default function Transfer() {
+export default function Transfer({ darkMode }) {
   const {screenSizeRevamp} = UseResponsive();
     const defaultStyle = {
       margin: "40px auto",
       width: "50%",
-      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+      boxShadow: darkMode 
+  ? "0px 4px 10px rgba(255, 255, 255, 0.1)" 
+  : "0px 4px 10px rgba(0, 0, 0, 0.1)",
       borderRadius: "20px",
       marginTop: "25px",
     }
@@ -28,7 +30,8 @@ export default function Transfer() {
     }
   const commonSelectStyles = {
     borderRadius: "8px",
-    backgroundColor: "rgba(250, 251, 253, 1)",
+     color:darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)",
+    backgroundColor: darkMode ? "#2a2a2a" : "rgba(255, 255, 255, 1)",
     "& .MuiOutlinedInput-notchedOutline": {
       borderColor: "transparent",
     },
@@ -38,7 +41,9 @@ export default function Transfer() {
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "#aaa",
     },
-    boxShadow: "0px 0px 5px rgba(91, 91, 91, 0.1)",
+    boxShadow: darkMode 
+  ? "0px 4px 10px rgba(255, 255, 255, 0.1)" 
+  : "0px 4px 10px rgba(0, 0, 0, 0.1)",
   };
   return (
     <LayoutGlobal
@@ -62,18 +67,20 @@ export default function Transfer() {
             alignItems: "center",
             overflow: "hidden",
             borderRadius: "20px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            boxShadow: darkMode 
+  ? "0px 4px 10px rgba(255, 255, 255, 0.1)" 
+  : "0px 4px 10px rgba(0, 0, 0, 0.1)",
           }}
         >
           <div
             style={{
-              backgroundColor: "rgba(237, 237, 237, 1)",
+              backgroundColor: darkMode ? "#2a2a2a" : "rgba(255, 255, 255, 1)",
               padding: "13px 20px",
               borderTopLeftRadius: "20px",
               borderBottomLeftRadius: "20px",
             }}
           >
-            <Typography type="label-lg" style={{ fontWeight: "bold" }}>
+            <Typography type="label-lg" style={{ fontWeight: "bold" }} color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}>
               To
             </Typography>
           </div>
@@ -108,7 +115,7 @@ export default function Transfer() {
                   style={{
                     fontWeight: "bold",
                     fontSize: "20px",
-                    color: "#7A7A7A",
+                    color: darkMode ? "#2a2a2a" : "#7a7a7a",
                   }}
                 >
                   IDR
@@ -118,6 +125,7 @@ export default function Transfer() {
             sx: {
               fontSize: "24px",
               fontWeight: "bold",
+                color:darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)",
             },
           }}
           sx={{
@@ -151,7 +159,7 @@ export default function Transfer() {
 
         {/* Notes */}
         <div>
-          <InputCustom placeholder="Notes" />
+          <InputCustom placeholder="Notes" darkMode={darkMode} />
         </div>
 
         {/* Button */}
