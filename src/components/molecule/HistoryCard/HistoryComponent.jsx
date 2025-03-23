@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "../../atom/Typography";
 import { Avatar, Divider } from "@mui/material";
 
-export default function HistoryComponent() {
+export default function HistoryComponent({ darkMode }) {
   const transactions = [
     {
       name: "Adityo Gizwanda",
@@ -33,7 +33,7 @@ export default function HistoryComponent() {
   return (
     <div
       style={{
-        backgroundColor: "white",
+        backgroundColor: darkMode ? "#2a2a2a" : "rgba(255, 255, 255, 1)",
         display: "flex",
         flexDirection: "column",
         gap: 12,
@@ -41,9 +41,14 @@ export default function HistoryComponent() {
         borderRadius: "10px",
         width: "auto",
         boxShadow: "none",
+        color: darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)",
       }}
     >
-      <Typography type="title-lg" style={{ fontWeight: "bold" }}>
+      <Typography
+        type="title-lg"
+        style={{ fontWeight: "bold" }}
+        color={darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}
+      >
         Transaction History
       </Typography>
       <Divider />
@@ -65,7 +70,16 @@ export default function HistoryComponent() {
                 <Typography type="body-lg">{tx.date}</Typography>
               </div>
             </div>
-            <Typography style={{ color: tx.amount > 0 ? "rgba(45, 192, 113, 1)" : "rgba(37, 43, 66, 1)" }}>
+            <Typography
+              style={{
+                color:
+                  tx.amount > 0
+                    ? "rgba(45, 192, 113, 1)"
+                    : darkMode
+                    ? "#B0B0B0"
+                    : "rgba(37, 43, 66, 1)",
+              }}
+            >
               {tx.amount > 0
                 ? `+ ${tx.amount.toLocaleString("id-ID")},00`
                 : `- ${Math.abs(tx.amount).toLocaleString("id-ID")},00`}

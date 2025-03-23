@@ -80,7 +80,11 @@ export default function NavbarCustom({ darkMode, setDarkMode }) {
           <div
             style={{ display: "flex", alignItems: "center", width: "100px" }}
           >
-            <img src="/image/logo.svg" alt="logo" style={{ width: "100%" }} />
+            <img
+              src="/image/logo.svg"
+              alt="logo"
+              style={{ width: "100%", filter: darkMode ? "invert(1)" : "none" }}
+            />
           </div>
         )}
 
@@ -97,6 +101,12 @@ export default function NavbarCustom({ darkMode, setDarkMode }) {
               anchor="right"
               open={openDrawer}
               onClose={() => setOpenDrawer(false)}
+              PaperProps={{
+                sx: {
+                  backgroundColor: darkMode ? "#121212" : "#fff",
+                  color: darkMode ? "#E0E0E0" : "#000",
+                },
+              }}
             >
               <List
                 sx={{

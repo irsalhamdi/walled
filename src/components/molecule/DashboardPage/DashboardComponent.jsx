@@ -10,11 +10,10 @@ import HistoryComponent from "../HistoryCard/HistoryComponent";
 import TableCustom from "../../atom/Table";
 import { Avatar } from "@mui/material";
 
-export default function DashboardComponent() {
+export default function DashboardComponent({darkMode}) {
   const {screenSizeRevamp} = UseResponsive();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  console.log(screenSizeRevamp, "cek screen size new");
 
   const defaultStyle = {
     alignItemsProfile: "center",
@@ -115,10 +114,10 @@ export default function DashboardComponent() {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            <Typography type="title-xl" style={{ fontWeight: "bold" }}>
+            <Typography type="title-xl" style={{ fontWeight: "bold" }} color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}>
               Good Morning, Chelsea
             </Typography>
-            <Typography type="body-lg">
+            <Typography type="body-lg" color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}>
               Check all your incoming and outgoing transactions here
             </Typography>
           </div>
@@ -133,16 +132,23 @@ export default function DashboardComponent() {
             }}
           >
             {screenSizeRevamp.small ? (
-              <img src="/image/sun-dashboard.svg" alt="sun-dashboard" />
+              <>
+              {darkMode ? (
+                <img src="/image/night-dashboard.svg" alt="night-dashboard" />
+              ): (
+                <img src="/image/sun-dashboard.svg" alt="sun-dashboard" />
+              )}
+              </>
             ): (
               <>
               <div style={{ display: customStyle(screenSizeRevamp, defaultStyle).displayProfil, flexDirection: "column" }}>
-                <Typography type="label-sm" style={{ fontWeight: "bold" }}>
+                <Typography type="label-sm" style={{ fontWeight: "bold" }} color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}>
                   Chelsea Immanuela
                 </Typography>
                 <Typography
                   type="label-xs"
                   style={{ fontFamily: "WalledRegular" }}
+                  color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}
                 >
                   Personal Account
                 </Typography>
@@ -179,21 +185,21 @@ export default function DashboardComponent() {
               borderRadius: "20px",
               color: "white",
               boxShadow: customStyle(screenSizeRevamp, defaultStyle).boxShadowAccountBlue,
-              justifyContent: customStyle(screenSizeRevamp, defaultStyle).justifyContentAccountBlue
+              justifyContent: customStyle(screenSizeRevamp, defaultStyle).justifyContentAccountBlue,
             }}
           >
-            <Typography type="body-lg">AccountNo</Typography>
+            <Typography type="body-lg" >AccountNo</Typography>
             <Typography type="body-lg">100899</Typography>
           </div>
           <div
             style={{
-              backgroundColor: "white",
+              backgroundColor: darkMode ? "#2a2a2a" : "rgba(255, 255, 255, 1)",
               display: "flex",
               flexDirection: "column",
               gap: 12,
               padding: customStyle(screenSizeRevamp, defaultStyle).paddingAccountWhite,
               borderRadius: customStyle(screenSizeRevamp, defaultStyle).borderRadiusAcccountWhite,
-              color: "white",
+              color: darkMode ? "#e0e0e0" : "rgba(255, 255, 255, 1)",
               width: customStyle(screenSizeRevamp, defaultStyle).widthAccountWhite,
               boxShadow: customStyle(screenSizeRevamp, defaultStyle).boxShadowAccountWhite,
             }}
@@ -203,19 +209,19 @@ export default function DashboardComponent() {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                color: "rgba(0, 0, 0, 1)",
+                color: darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)",
                 justifyContent: "space-between",
               }}
             >
               <div style={{ display: "flex",  flexDirection: "column",justifyContent: "space-between", width: "auto",}}>
                <div>
-                  <Typography type="body-lg" color="rgba(0, 0, 0, 1)">
+                  <Typography type="body-lg" color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"} >
               Balance
             </Typography>
                </div>
                <div style={{ display: "flex", flexDirection: "row", gap: 10, alignItems: "center" }}>
-                <Typography type="title-lg" style={{ fontWeight: "bold" }}>{`Rp ${convertUsds2(10000000)}`} </Typography>
-                <RemoveRedEyeOutlined />
+                <Typography type="title-lg" style={{ fontWeight: "bold" }} color= {darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}>{`Rp ${convertUsds2(10000000)}`} </Typography>
+                <RemoveRedEyeOutlined  />
                </div>
               </div>
               <div style={{ display: "flex", flexDirection: customStyle(screenSizeRevamp, defaultStyle).flexDirectionButtonBlue, gap: 26, marginTop: customStyle(screenSizeRevamp, defaultStyle).marginTopButtonBlue }}>
@@ -239,7 +245,7 @@ export default function DashboardComponent() {
         {/* Table */}
         <div style={{ margin: "20px 0", }}>
           {screenSizeRevamp.small ? (
-            <HistoryComponent />
+            <HistoryComponent darkMode={darkMode} />
           ): (
            <TableCustom
             verticalLine
@@ -257,6 +263,7 @@ export default function DashboardComponent() {
             onClickNext={() => handleNextPage(currentPage + 1)}
             prevDisabled={currentPage === 1}
             nextDisabled={currentPage === dataTable.total_items}
+            darkMode={darkMode}
           />
           )}
         </div>

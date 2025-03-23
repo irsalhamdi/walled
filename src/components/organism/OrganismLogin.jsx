@@ -3,7 +3,7 @@ import LeftComponent from "../molecule/LoginPage/LeftComponent";
 import RightComponent from "../molecule/LoginPage/RightComponent";
 import UseResponsive from "../../hooks/UseResponsive";
 
-export default function OrganismLogin() {
+export default function OrganismLogin({ darkMode }) {
   const {screenSizeRevamp} = UseResponsive();
   return (
     <div
@@ -12,10 +12,11 @@ export default function OrganismLogin() {
         justifyContent: "space-between",
         alignItems: "center",
         height: "100vh",
+        backgroundColor: darkMode ? "#121212" : "#ffffff",
       }}
     > 
-      <LeftComponent />
-      {screenSizeRevamp.medium || screenSizeRevamp.small ? null : <RightComponent />}
+      <LeftComponent darkMode={darkMode}/>
+      {screenSizeRevamp.medium || screenSizeRevamp.small ? null : <RightComponent darkMode={darkMode} />}
     </div>
   );
 }

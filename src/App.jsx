@@ -25,14 +25,14 @@ function App() {
       <Routes>
         {/* Halaman dengan Navbar */}
         <Route element={<Layout darkMode={darkMode} setDarkMode={setDarkMode} />}>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/" element={<DashboardPage darkMode={darkMode} />} />
           <Route path="/transfer" element={<TransferPage />} />
           <Route path="/topup" element={<TopupPage />} />
         </Route>
 
         {/* Halaman Login & Register */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage darkMode={darkMode} />} />
+        <Route path="/register" element={<RegisterPage darkMode={darkMode} />} />
       </Routes>
     </Router>
   );

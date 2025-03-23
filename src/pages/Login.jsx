@@ -1,8 +1,8 @@
 import React from 'react'
 import OrganismLogin from '../components/organism/OrganismLogin'
 
-export default function Login() {
+export default function Login({ darkMode }) {
   return (
-    <OrganismLogin/>
+    <OrganismLogin darkMode={darkMode}/>
   )
 }

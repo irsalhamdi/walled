@@ -26,9 +26,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { format } from "date-fns";
 import UseResponsive from "../../../hooks/UseResponsive.jsx";
+import Typography from "../Typography/index.jsx";
 
 const MerchantTableCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
+    borderColor: "red",
     textAlign: "center",
     border: "1px solid #EDEDED !important",
     color: "#252B42",
@@ -64,23 +66,24 @@ const TableCustom = (props) => {
     onClickNext,
     onChangeRowsPerPage,
     total_items,
+    darkMode,
   } = props;
 
-  const {screenSizeRevamp} = UseResponsive();
+  const { screenSizeRevamp } = UseResponsive();
   const defaultStyle = {
     flexWrap: "nowrap",
     gap: 0,
     widthFilter: "auto",
-  }
+  };
   const manipulateStyle = (screenSizeRevamp, defaultStyle) => {
-    let newStyle = {...defaultStyle};
+    let newStyle = { ...defaultStyle };
     if (screenSizeRevamp.medium) {
       newStyle.flexWrap = "wrap";
       newStyle.gap = 20;
       newStyle.widthFilter = "40%";
     }
     return newStyle;
-  }
+  };
 
   const isLoadingDataFetch = {
     dataTable: false,
@@ -109,8 +112,8 @@ const TableCustom = (props) => {
   const endIndex = Math.min(page * rowsPerPage, total_items);
 
   const formatDate = (isoDate) => {
-  return format(new Date(isoDate), "HH:mm - dd MMMM yyyy");
-};
+    return format(new Date(isoDate), "HH:mm - dd MMMM yyyy");
+  };
 
   const commonTextFieldStyles = {
     fontFamily: "WalledRegular",
@@ -118,7 +121,8 @@ const TableCustom = (props) => {
     boxShadow: "0px 0px 5px rgba(91, 91, 91, 0.1)",
     "& .MuiOutlinedInput-root": {
       borderRadius: "8px",
-      backgroundColor: "white",
+      backgroundColor: darkMode ? "#333" : "white",
+      color: darkMode ? "#e0e0e0" : "black",
       "& fieldset": {
         borderColor: "transparent",
       },
@@ -133,7 +137,8 @@ const TableCustom = (props) => {
 
   const commonSelectStyles = {
     borderRadius: "8px",
-    backgroundColor: "white",
+    backgroundColor: darkMode ? "#333" : "white",
+    color: darkMode ? "#e0e0e0" : "black",
     "& .MuiOutlinedInput-notchedOutline": {
       borderColor: "transparent",
     },
@@ -159,7 +164,14 @@ const TableCustom = (props) => {
           gap: manipulateStyle(screenSizeRevamp, defaultStyle).gap,
         }}
       >
-        <div style={{ display: "flex", flexDirection: "row", gap: "16px", width: manipulateStyle(screenSizeRevamp, defaultStyle).widthFilter }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "16px",
+            width: manipulateStyle(screenSizeRevamp, defaultStyle).widthFilter,
+          }}
+        >
           <TextField
             variant="outlined"
             placeholder="Search"
@@ -168,14 +180,26 @@ const TableCustom = (props) => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                 <Search />
+                  <Search />
                 </InputAdornment>
               ),
             }}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "row", gap: "16px", width: manipulateStyle(screenSizeRevamp, defaultStyle).widthFilter }}>
-          <p>Show</p>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "16px",
+            width: manipulateStyle(screenSizeRevamp, defaultStyle).widthFilter,
+          }}
+        >
+          <Typography
+            style={{ display: "flex", alignItems: "center" }}
+            color={darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}
+          >
+            Show
+          </Typography>
           <Select
             value="Last 10 transactions"
             onChange={(e) => console.log(e)}
@@ -205,8 +229,18 @@ const TableCustom = (props) => {
             width: manipulateStyle(screenSizeRevamp, defaultStyle).widthFilter,
           }}
         >
-          <span>Sort</span>
-          <span>By</span>
+          <Typography
+            style={{ display: "flex", alignItems: "center" }}
+            color={darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}
+          >
+            Sort
+          </Typography>
+          <Typography
+            style={{ display: "flex", alignItems: "center" }}
+            color={darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}
+          >
+            By
+          </Typography>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               value={selectedDate}
@@ -244,10 +278,14 @@ const TableCustom = (props) => {
                   {columns.map((data, i) => (
                     <MerchantTableCell key={i}>
                       <div title={"column"} style={{ minWidth: "max-content" }}>
-                        {loadingSkeleton(
-                          isLoadingDataFetch.dataTable,
-                          data.name
-                        )}
+                        <Typography
+                          color={darkMode ? "#B0B0B0" : "rgba(0, 0, 0, 1)"}
+                        >
+                          {loadingSkeleton(
+                            isLoadingDataFetch.dataTable,
+                            data.name
+                          )}
+                        </Typography>
                       </div>
                     </MerchantTableCell>
                   ))}
@@ -260,8 +298,20 @@ const TableCustom = (props) => {
                       key={i}
                       title="row"
                       sx={{
-                        backgroundColor: i % 2 === 0 ? "#EDEDED" : "white",
-                        color: i % 2 === 0 ? "white" : "#EAEBEB",
+                        backgroundColor: darkMode
+                          ? i % 2 === 0
+                            ? "#1e1e1e"
+                            : "#2a2a2a"
+                          : i % 2 === 0
+                          ? "#EDEDED"
+                          : "white",
+                        color: darkMode
+                          ? i % 2 === 0
+                            ? "#E5E5E5"
+                            : "#CCCCCC"
+                          : i % 2 === 0
+                          ? "white"
+                          : "#333333",
                       }}
                     >
                       {columns
