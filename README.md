@@ -1,12 +1,44 @@
-# React + Vite
+# Walled App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Deskripsi
+Aplikasi Mobile Walled ini dibuat menggunakan React JS .Fitur utama aplikasi ini meliputi:
+- Tampilan akun dan saldo pengguna
+- Daftar transaksi
+- Mode gelap dan terang yang dapat diubah
+- Navigasi ke halaman top-up dan transfer
 
-Currently, two official plugins are available:
+## Instalasi
+1. Pastikan Anda sudah menginstal Node.js dan npm/yarn.
+2. Clone repositori ini:
+   ```sh
+   git clone https://github.com/irsalhamdi/walled.git
+   cd repo
+   ```
+3. Instal dependensi:
+   ```sh
+   npm install
+   ```
+   atau jika menggunakan yarn:
+   ```sh
+   yarn install
+   ```
+4. Jalankan aplikasi:
+   ```sh
+   npx run dec
+   ```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Autentikasi
+- username : user@example.com
+- Password : password
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Fitur
+- **Mode Gelap & Terang**: Dapat beralih antara mode gelap dan terang.
+- **Daftar Transaksi**: Menampilkan daftar transaksi pengguna dengan scrolling.
+- **Navigasi**: Menggunakan `expo-router` untuk berpindah halaman.
+
+## Cara Mengubah Tema
+Tema dapat diubah dengan mengklik ikon matahari atau bulan di Header.
+
+## Pengembang
+- **Irsal Hamdi** - [GitHub](https://github.com/irsalhamdi)
